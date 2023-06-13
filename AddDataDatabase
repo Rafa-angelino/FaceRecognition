@@ -1,0 +1,46 @@
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import db
+
+cred = credentials.Certificate("serviceAccountKey.json")
+firebase_admin.initialize_app(cred, {
+    'databaseURL': "https://facerecognitionworkers-default-rtdb.firebaseio.com/"
+})
+
+ref = db.reference('Workers')
+
+data = {
+    "345627":
+        {
+            "name": "Rafael Piccolo",
+            "Major": "Desenvolvedor Mobile",
+            "starting_year": 2021,
+            "total_attendance": 2,
+            "standing":"Good",
+            "year": 2,
+            "last_attendance_time": "2023-06-13 08:00:00"
+        },
+        "574920":
+        {
+            "name": "Rafael Angelino",
+            "Major": "Desenvolvedor Backend",
+            "starting_year": 2021,
+            "total_attendance": 2,
+            "standing":"Good",
+            "year": 2,
+            "last_attendance_time": "2023-06-13 08:00:00"
+        },
+        "919191":
+        {
+            "name": "Paula Maluf",
+            "Major": "CEO, Arquiteta",
+            "starting_year": 2019,
+            "total_attendance": 2,
+            "standing":"Excellent",
+            "year": 4,
+            "last_attendance_time": "2023-06-13 08:00:00"
+        },
+}
+#enviando os dados para o firebase
+for key, value in data.items():
+    ref.child(key).set(value)
